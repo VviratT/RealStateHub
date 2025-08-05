@@ -147,20 +147,25 @@ const addPropertylisting = asyncHandler(async(req,res)=>{
     )
 })
 
-const removePropertyListing = asyncHandler (async(req,res)=>{
-    const {id} = req.query
-    if(!id) throw new ApiError(401,"invalid property id")
-    const response =  await Property.findByIdAndDelete(id);
+const removePropertyListing = asyncHandler(async (req, res) => {
+  const { id } = req.query;
+  const userId = req.user?._id;
 
-    return res.status(200)
-    .json(
-        new ApiResponse(
-            200,
-            response,
-            "successfully deleted"
-        )
-    )
-})
+  if (!id) throw new ApiError(401, "Invalid property ID");
+
+  const property = await Property.findById(id);
+  if (!property) throw new ApiError(404, "Property not found");
+
+  // Check ownership
+  if (property.seller.toString() !== userId.toString()) {
+    throw new ApiError(403, "You are not authorized to delete this property");
+  }
+
+  await property.deleteOne();
+
+  return res.status(200).json(new ApiResponse(200, null, "Property deleted successfully"));
+});
+
 
 const getUserListings = asyncHandler(async(req,res)=>{
     const data = await Property.find({seller:req.user?._id})

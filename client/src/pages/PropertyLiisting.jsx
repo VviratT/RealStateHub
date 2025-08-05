@@ -29,13 +29,14 @@ function Propertylistings() {
           <div
             key={item._id}
             onClick={() => showDetails(item._id)}
-            className="w-[300px] bg-white rounded-xl cursor-pointer"
+            className="w-[300px] h-[500px] bg-white rounded-xl cursor-pointer"
           >
             <img
               src={item.images?.[0]}
               alt=""
-              className="mb-4"
+              className="mb-4 rounded-xl"
               loading="lazy"
+              style={{ width: "100%", height: "250px", objectFit: "cover" }}
             />
             <div className="p-3">
               <p className="text-2xl mb-2">{item.title}</p>

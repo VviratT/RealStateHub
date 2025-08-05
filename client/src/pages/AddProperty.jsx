@@ -32,6 +32,35 @@ function AddProperty() {
     fetchUserListings();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this property?"
+      );
+      if (!confirmed) return;
+
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/delete-property?id=${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Property deleted successfully");
+        setUserListings((prev) => prev.filter((prop) => prop._id !== id));
+      } else {
+        alert(data?.message || "Error deleting property");
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert("An error occurred while deleting the property.");
+    }
+  };
+
   const showDetails = (propertyId) => {
     navigate(`/property/details/${propertyId}`);
   };
@@ -81,18 +110,33 @@ function AddProperty() {
       ) : (
         <div className="grid grid-cols-4 gap-6 p-6">
           {userListings.map((item) => (
-            <div
-              key={item._id}
-              onClick={() => showDetails(item._id)}
-              className="w-[300px] bg-gray-100 rounded-xl cursor-pointer"
-            >
-              <img src={item.images?.[0]} alt="" className="mb-4" />
-              <div className="p-3">
-                <p className="text-2xl mb-2">{item.title}</p>
-                <p className="mb-2">{item.description}</p>
-                <p>Location: {item.location}</p>
-                <p>Seller: {item.sellername}</p>
-                <p>Price: ${item.price}</p>
+            <div className="w-[300px] bg-gray-100 rounded-xl cursor-pointer">
+              <div
+                key={item._id}
+                onClick={() => showDetails(item._id)}
+                className="w-[300px] bg-gray-100 rounded-xl cursor-pointer"
+              >
+                <img
+                  src={item.images?.[0]}
+                  alt=""
+                  className="mb-4 rounded-xl"
+                  style={{ width: "100%", height: "250px", objectFit: "cover" }}
+                />
+                <div className="p-3">
+                  <p className="text-2xl mb-2">{item.title}</p>
+                  <p className="mb-2">{item.description}</p>
+                  <p>Location: {item.location}</p>
+                  <p>Seller: {item.sellername}</p>
+                  <p>Price: ${item.price}</p>
+                </div>
+              </div>
+              <div className="flex justify-between p-3">
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}
