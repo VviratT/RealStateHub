@@ -13,20 +13,21 @@ function Search(){
     useEffect(  ()=>{
         setLoading(true)
         setSearchFeildValue(location)
-        fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body:JSON.stringify({"location":location})
-        }).then(res => res.json())
-        .then(res => {setSearchData(res.data)
-            if(res.data?.length ==0){
-                setError(true)
-                setErrorMessage("No data found !!")
-            }
-            else setError(false)
+        fetch(`${import.meta.env.VITE_API_URL}/property/search-by-location`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({ location: location }),
         })
+          .then((res) => res.json())
+          .then((res) => {
+            setSearchData(res.data);
+            if (res.data?.length == 0) {
+              setError(true);
+              setErrorMessage("No data found !!");
+            } else setError(false);
+          });
         setLoading(false)
     },[])
 
@@ -34,22 +35,22 @@ function Search(){
         setLoading(true)
         if(!searchFeildValue) console.log("no seach feild");
         else{
-        fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body:JSON.stringify({"location":searchFeildValue})
-        }).then(res => res.json())
-        .then(res => {setSearchData(res.data)
-       
-        if(res.data?.length ==0){
-            setError(true)
-            setErrorMessage("No data found !!!")
-        }
-        else setError(false)
-    }
-    )
+        fetch(`${import.meta.env.VITE_API_URL}/property/search-by-location`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({ location: searchFeildValue }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            setSearchData(res.data);
+
+            if (res.data?.length == 0) {
+              setError(true);
+              setErrorMessage("No data found !!!");
+            } else setError(false);
+          });
     }
         setSearchFeildValue("")
         setLoading(false)
