@@ -36,6 +36,12 @@ const PropertySchema = new Schema({
         type:[
             String
         ]
+    },
+    address:{
+        type:String
+    },
+    phoneno:{
+        type:String
     }
 },{timestamps:true})
 

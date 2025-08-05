@@ -105,7 +105,7 @@ const logoutUser = asyncHandler(async(req,res)=>{
 const addPropertylisting = asyncHandler(async(req,res)=>{
     
     
-    const {title, location ,propertyType,price,bedrooms,bathrooms,description} = req.body
+    const {title, location ,propertyType,price,bedrooms,bathrooms,description,address,phoneno} = req.body
    
     if(!title || !location || !propertyType || !price ) throw new ApiError(401,"All feilds required")
     // console.log(req.files)
@@ -132,6 +132,8 @@ const addPropertylisting = asyncHandler(async(req,res)=>{
         bathrooms,
         images,
         description,
+        address,
+        phoneno,
         seller:req.user
     })
 

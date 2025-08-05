@@ -42,6 +42,8 @@ const PropertyDetails = () => {
     bedrooms,
     bathrooms,
     price,
+    address,
+    phoneno,
     images = [],
     seller = {},
   } = propertyData;
@@ -88,8 +90,8 @@ const PropertyDetails = () => {
               Seller Name: {seller.fullname || seller.username || "N/A"}
             </div>
             <div>Contact: {seller.email || "N/A"}</div>
-            <div>Mobile: +123 4567890</div>
-            <div>Address: 422 Maple Street, San Francisco</div>
+            <div>Mobile: +91 {phoneno || 9302720802}</div>
+            <div>Address: {address || "Bhopal, Madhya Pradesh"}</div>
           </div>
         </div>
 

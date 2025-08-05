@@ -115,6 +115,7 @@ function AddProperty() {
             "bedrooms",
             "bathrooms",
             "propertyType",
+            "address",
           ].map((field) => (
             <div className="grid grid-cols-2 m-4" key={field}>
               <label className="text-xl capitalize">{field}:</label>
