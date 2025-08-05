@@ -13,7 +13,7 @@ function Search(){
     useEffect(  ()=>{
         setLoading(true)
         setSearchFeildValue(location)
-        fetch(`http://localhost:3000/api/v1/property/search/location`,{
+        fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json;charset=utf-8'
@@ -34,7 +34,7 @@ function Search(){
         setLoading(true)
         if(!searchFeildValue) console.log("no seach feild");
         else{
-        fetch(`http://localhost:3000/api/v1/property/search/location`,{
+        fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json;charset=utf-8'

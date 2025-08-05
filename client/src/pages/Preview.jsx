@@ -20,17 +20,19 @@ const Preview = function(){
         formData.append("email",email)
         formData.append("password",password)
 
-        const response = await fetch(`http://localhost:3000/api/v1/user/login`,{
-            method:'POST',
-            headers:{
-                // 'Content-type': "multipart/form-data"
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/user/login`,
+          {
+            method: "POST",
+            headers: {
+              // 'Content-type': "multipart/form-data"
             },
-            credentials:'include',
-            body:formData
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            credentials: "include",
+            body: formData,
+          }
+        ).catch((err) => {
+          console.log(err);
+        });
 
         setEmail("")
         setPassword("")

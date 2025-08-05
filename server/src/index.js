@@ -1,35 +1,36 @@
+// server/src/index.js
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import app from './app.js';
+import app from './app.js';  // your Express app
 
+// --- DB Connection ---
 let isConnected = false;
-
 async function connectDB() {
   if (isConnected) return;
   try {
-    await mongoose.connect(`${process.env.MONGODB_URI}/${process.env.DB_NAME}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      `${process.env.MONGODB_URI}/${process.env.DB_NAME}`,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
     isConnected = true;
-    console.log("✅ Connected to MongoDB");
+    console.log('✅ Connected to MongoDB');
   } catch (error) {
-    console.error("❌ MongoDB connection error:", error);
-    throw error;
+    console.error('❌ MongoDB connection error:', error);
+    process.exit(1);
   }
 }
 
-// Export a handler for Vercel
-export default async function handler(req, res) {
+// --- Server Startup ---
+const PORT = process.env.PORT || 8000;
+async function startServer() {
   await connectDB();
-  return app(req, res);
+  app.listen(PORT, () => {
+    console.log(`🚀 Server listening on http://localhost:${PORT}`);
+  });
 }
 
-
-
-
-
-
-
-
-
+// Run it!
+startServer();
