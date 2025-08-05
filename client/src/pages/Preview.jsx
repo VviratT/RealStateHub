@@ -25,7 +25,6 @@ const Preview = function(){
           {
             method: "POST",
             headers: {
-              // 'Content-type': "multipart/form-data"
             },
             credentials: "include",
             body: formData,
@@ -37,7 +36,6 @@ const Preview = function(){
         setEmail("")
         setPassword("")
         setUserName("")
-        // console.log(response);
         if(response && response.status == 200){
             setmessage(false)
             navigate(`/user/home`)
@@ -73,20 +71,6 @@ const Preview = function(){
             <p className="text-xl text-center my-4">Discover What Sets Us Apart</p>
             
             <div className=" flex justify-center">
-                {/* <form action="" className="">
-                    <div className="flex justify-around">
-                    <label htmlFor="">username: </label>
-                    <input type="text" />
-                    </div>
-                    <div className="flex justify-around">
-                    <label htmlFor="">email: </label>
-                    <input type="text" />
-                    </div>
-                    <div className="flex justify-around">
-                    <label htmlFor="">password: </label>
-                    <input type="text" />
-                    </div>
-                </form> */}
                 
                 <form action="" className=" bg-gray-100 w-[400px] p-4 rounded-xl shadow-md   ">
                 <div className="text-center text-xl mb-4">Login</div>

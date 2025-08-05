@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import userRouter from './routes/user.routes.js';
 import propertyRouter from './routes/property.routes.js';
-import { ApiError } from './utils/ApiError.js';  // make sure path is correct
+import { ApiError } from './utils/ApiError.js'; 
 
 const app = express();
 
@@ -16,11 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cookieParser());
 
-// mount your routers
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/property', propertyRouter);
 
-// 404 handler — all other routes
 app.use((req, res, next) => {
   res.status(404).json({
     status: 'fail',
@@ -28,19 +26,16 @@ app.use((req, res, next) => {
   });
 });
 
-// error‐handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
 
   if (err instanceof ApiError) {
-    // our custom errors
     return res.status(err.statusCode).json({
       status: 'error',
       message: err.message,
     });
   }
 
-  // mongoose validation errors, multer errors, etc.
   if (err.name === 'ValidationError') {
     return res.status(400).json({
       status: 'error',
@@ -48,7 +43,6 @@ app.use((err, req, res, next) => {
     });
   }
 
-  // fallback for anything else
   res.status(500).json({
     status: 'error',
     message: 'Internal server error',

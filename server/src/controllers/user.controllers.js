@@ -13,7 +13,6 @@ const registerUser = asyncHandler(async(req,res)=>{
         throw new ApiError(401,"all feilds are required")
     }
     
-    // find if user already exsist
     const exsistingUser = await User.findOne({username})
     console.log(exsistingUser);
     
@@ -108,17 +107,13 @@ const addPropertylisting = asyncHandler(async(req,res)=>{
     const {title, location ,propertyType,price,bedrooms,bathrooms,description,address,phoneno} = req.body
    
     if(!title || !location || !propertyType || !price ) throw new ApiError(401,"All feilds required")
-    // console.log(req.files)
     const exixtingProperty = await Property.findOne({title})
     if(exixtingProperty) throw new ApiError (400,"this propety Already exixits")
     let images=[]
     if(req.files){
         for(const file of req.files){
-            // console.log("inside files loop");
             const path = file?.path
-            // console.log("paths is ",path);
             const res = await uploadOnCloudinary(path)
-            // console.log(res);
             images.push(res)
         }
     }

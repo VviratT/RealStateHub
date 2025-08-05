@@ -30,14 +30,8 @@ const getPropertyDetails = asyncHandler(async(req,res)=>{
     if(!id) throw new ApiError(401,"id is required")
     const property = await  Property.findById(id)
     if(!property) throw new ApiError (400,"invalid id")
-    /*
-     let propertyList = await Promise.all(data.map(async (element) =>{
-            let propertyObject = element.toObject()
-            const user = await User.findById(propertyObject.seller)
-            if(user) propertyObject.sellername = user.username
-            return propertyObject
-    }))
-    */
+
+        
    const Seller = await User.findById(property.seller).select("-password -refreshToken")
    let newPropertyObject = property.toObject()
     newPropertyObject.seller = Seller

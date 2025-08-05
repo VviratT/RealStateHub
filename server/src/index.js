@@ -1,9 +1,10 @@
-// server/src/index.js
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import app from './app.js';  // your Express app
+import app from './app.js'; 
+import cors from 'cors';
+app.use(cors());
 
-// --- DB Connection ---
+
 let isConnected = false;
 async function connectDB() {
   if (isConnected) return;
@@ -23,7 +24,6 @@ async function connectDB() {
   }
 }
 
-// --- Server Startup ---
 const PORT = process.env.PORT || 8000;
 async function startServer() {
   await connectDB();
@@ -32,5 +32,4 @@ async function startServer() {
   });
 }
 
-// Run it!
 startServer();

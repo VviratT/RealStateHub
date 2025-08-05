@@ -8,7 +8,6 @@ const PropertyDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // Use POST with property ID
     fetch(`${import.meta.env.VITE_API_URL}/property/details`, {
       method: "POST",
       headers: {
