@@ -5,11 +5,15 @@ function Header(){
 
 const navigate = useNavigate()
 const handleLogout= async ()=>{
-    const response = await fetch('http://localhost:8000/api/v1/user/logout',{
-        method:'GET',
-        credentials:"include"
-    }).then(res => res.json())
-    .catch(err => console.log(err))
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/user/logout`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
     console.log(response);
     if(response?.statuscode == 200){
         navigate(`/`)

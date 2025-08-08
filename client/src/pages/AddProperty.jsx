@@ -16,21 +16,23 @@ function AddProperty() {
         `${import.meta.env.VITE_API_URL}/user/userListings`,
         {
           method: "POST",
-          credentials: "include",
+          credentials: "include", 
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, 
+          },
         }
       );
+
       const data = await res.json();
       setUserListings(data.data || []);
     } catch (err) {
-      console.error(err);
+      console.error("fetchUserListings error:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchUserListings();
-  }, []);
 
   const handleDelete = async (id) => {
     try {
