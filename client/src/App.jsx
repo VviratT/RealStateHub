@@ -13,18 +13,6 @@ import AddProperty from './pages/AddProperty.jsx'
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-const app = express(); 
-app.use(cookieParser());
-
-app.use(
-  cors({
-    origin: "https://realstatehub.onrender.com" || true, 
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "x-access-token"],
-    credentials: true, 
-  })
-);
-
 
 function App() {
   const [count, setCount] = useState(0)

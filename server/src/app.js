@@ -7,10 +7,16 @@ import { ApiError } from './utils/ApiError.js';
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true,
-}));
+
+app.use(
+  cors({
+    origin: "https://realstatehub.onrender.com" || true, 
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-access-token"],
+    credentials: true, 
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
